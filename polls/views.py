@@ -4,10 +4,13 @@ from django.shortcuts import render
 
 
 from django.http import HttpResponse
-from subprocess import call
+from subprocess import call, Popen
 
 
 
 def index(request):
-    call(["git", "clone", "git@github.com:BLIMBA.git"])
-    return HttpResponse("Hello, world. You're at the polls index.")
+    Popen(["git", "pull"],
+          cwd="/home/ferrelucas/workspace/alura-site").wait()
+    Popen(["python2.7", "/home/ferrelucas/workspace/google-cloud-sdk/platform/google_appengine/appcfg.py", "update", "."],
+          cwd="/home/ferrelucas/workspace/alura-site").wait()
+    return HttpResponse("Deployment completed!")
